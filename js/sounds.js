@@ -5,19 +5,19 @@ var mp3_sounds = [
    "cube5",
 
    "test_drum",
+   "clickies",
+   "clap",
+   "doubleclick",
+   "pew",
+   "tshh",
+   "twinklebeep",
+
+   "bassC",
+   "bassD",
+   "bassE",
+   "bassG",
 ];
 
-var wav_sounds = [
-   "hibassE",
-   "hibassFsharp",
-   "hibassGsharp",
-   "hibassB",
-   "tenorE",
-   "tenorFsharp",
-   "tenorGsharp",
-   "tenorB",
-
-];
 
 var sounds = {};
 
@@ -30,15 +30,6 @@ for (var name in mp3_sounds) {
    });
 }
 
-// Load WAVs
-for (var name in wav_sounds) {
-   var sound_name = wav_sounds[name];
-
-   sounds[sound_name] = new buzz.sound( "sounds/" + sound_name, {
-      formats: [ "wav" ]
-   });
-}
-
 function do_sound(name) {
    if (!name in sounds) {
       console.log("Tried to play non-existant sound: " + name);
@@ -48,3 +39,16 @@ function do_sound(name) {
    sounds[name].stop();
    sounds[name].play();
 }
+
+// var test = new buzz.sound("sounds/bassG_middle", { formats: [ "wav" ] });
+// test.loop().play();
+
+var loop = new SeamlessLoop();
+
+loop.addUri("sounds/bassG_middle.wav", 329, "test");
+
+function soundsLoaded() {
+   loop.start("test");
+};
+
+loop.callback(soundsLoaded);

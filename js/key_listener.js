@@ -27,32 +27,35 @@ function onKeyUp(event) {
    down_keys[key_code] = false;
 }
 
+function do_basswaves(side) {
+   window.waves_side = side;
+   window.waves_dampener = 1;
+}
+
 function do_instrument(key_code) {
    var char_pressed = String.fromCharCode(key_code);
 
    switch (char_pressed) {
       // BASS
       case 'Z':
-         do_sound("tenorB");
-         window.waves_side = 0;
-         window.waves_dampener = 1;
+         do_sound("bassG");
+         do_basswaves(0);
          break;
       case 'X':
-         do_sound("tenorGsharp");
-         window.waves_side = 1;
-         window.waves_dampener = 1;
+         do_sound("bassE");
+         do_basswaves(1);
          break;
       case 'C':
-         do_sound("tenorE");
-         window.waves_side = 2;
-         window.waves_dampener = 1;
+         do_sound("bassC");
+         do_basswaves(2);
          break;
       case 'V':
-         do_sound("tenorFsharp");
-         window.waves_side = 3;
-         window.waves_dampener = 1;
+         do_sound("bassD");
+         do_basswaves(3);
          break;
-      case 'Q':
+
+      // Percussion
+      case 'B':
          do_sound("test_drum");
          break;
    }
