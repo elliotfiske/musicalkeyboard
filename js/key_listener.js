@@ -29,7 +29,12 @@ function onKeyUp(event) {
 
 function do_basswaves(side) {
    window.waves_side = side;
-   window.waves_dampener = 1;
+   window.waves_dampener = 1.4;
+
+   sounds["bassC"].stop();
+   sounds["bassE"].stop();
+   sounds["bassG"].stop();
+   sounds["bassD"].stop();
 }
 
 function do_instrument(key_code) {
@@ -38,25 +43,50 @@ function do_instrument(key_code) {
    switch (char_pressed) {
       // BASS
       case 'Z':
-         do_sound("bassG");
          do_basswaves(0);
+         do_sound("bassG");
          break;
       case 'X':
-         do_sound("bassE");
          do_basswaves(1);
+         do_sound("bassE");
          break;
       case 'C':
-         do_sound("bassC");
          do_basswaves(2);
+         do_sound("bassC");
          break;
       case 'V':
-         do_sound("bassD");
          do_basswaves(3);
+         do_sound("bassD");
          break;
 
       // Percussion
       case 'B':
          do_sound("test_drum");
+         break;
+
+      // Lead
+      case '1':
+         do_sound("leadG1");
+         break;
+      case '2':
+         break;
+      case '3':
+         break;
+      case '4':
+         break;
+      case '5':
+         break;
+      case '6':
+         break;
+      case '7':
+         break;
+      case '8':
+         break;
+      case '9':
+         break;
+      case '0':
+         break;
+      case '-':
          break;
    }
    if (key_code == 65) { // a

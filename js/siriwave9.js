@@ -152,7 +152,7 @@ SiriWave9.prototype._draw = function() {
 
 	this.ctx.save();
 
-	if (waves_dampener >= 0) {
+	if (waves_dampener >= 0.5) {
 		waves_dampener *= 0.94;
 	}
 

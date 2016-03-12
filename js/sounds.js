@@ -16,6 +16,14 @@ var mp3_sounds = [
    "bassD",
    "bassE",
    "bassG",
+
+   "leadG1",
+   "leadG2",
+   "leadG3",
+
+   "leadE1",
+   "leadE2",
+
 ];
 
 
@@ -32,23 +40,10 @@ for (var name in mp3_sounds) {
 
 function do_sound(name) {
    if (!name in sounds) {
-      console.log("Tried to play non-existant sound: " + name);
+      console.warn("Tried to play non-existant sound: " + name);
       return;  
    }
 
    sounds[name].stop();
    sounds[name].play();
 }
-
-// var test = new buzz.sound("sounds/bassG_middle", { formats: [ "wav" ] });
-// test.loop().play();
-
-var loop = new SeamlessLoop();
-
-loop.addUri("sounds/bassG_middle.wav", 329, "test");
-
-function soundsLoaded() {
-   loop.start("test");
-};
-
-loop.callback(soundsLoaded);

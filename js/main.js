@@ -32,27 +32,25 @@ renderer.setSize( window.innerWidth, window.innerHeight );
 renderer.setClearColor( 0xddddff, 1);
 document.body.appendChild( renderer.domElement );
 
-var geometry = new THREE.BoxGeometry( 1, 1, 1 );
-// var material = new THREE.MeshLambertMaterial( {color: 0xdddddd, shading: THREE.FlatShading} );
-var material1 = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
-var material2 = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
-var material3 = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
-var material4 = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
-var material5 = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
-var material6 = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
-var material7 = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
-var material8 = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
-var material9 = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
-// var material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
-var cube1 = new THREE.Mesh( geometry, material1 );
-var cube2 = new THREE.Mesh( geometry, material2 );
-var cube3 = new THREE.Mesh( geometry, material3 );
-var cube4 = new THREE.Mesh( geometry, material4 );
-var cube5 = new THREE.Mesh( geometry, material5 );
-var cube6 = new THREE.Mesh( geometry, material6 );
-var cube7 = new THREE.Mesh( geometry, material7 );
-var cube8 = new THREE.Mesh( geometry, material8 );
-var cube9 = new THREE.Mesh( geometry, material9 );
+
+var num_cubes = 11;
+var min_x = -5;
+var curr_x = min_x;
+var min_y = -3;
+var curr_y = min_y;
+
+for (var ndx = 0; ndx < num_cubes; ndx++) {
+   var geometry = new THREE.BoxGeometry( 1, 1, 1 );
+   var new_material = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
+   var new_cube = new THREE.Mesh (cube_geometry, new_material);
+
+   new_cube.position.x = curr_x;
+   new_cube.position.y = curr_y;
+
+   curr_x += 
+
+   cubes.push(new_cube);
+}
 
 cube1.position.x = -4;
 cube2.position.x = -3;
