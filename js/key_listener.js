@@ -1,7 +1,7 @@
 document.addEventListener('keydown', onKeyDown, false);
 document.addEventListener('keyup',   onKeyUp, false);
 
-var pushed_keys = [];
+var down_keys = {};
 var last_time = 0;
 
 // # of milliseconds since we burned through all the keypresses
@@ -13,7 +13,10 @@ function onKeyDown(event) {
    event = event || window.event;
    var key_code = event.keyCode;
 
-   pushed_keys.push(key_code);
+   if (!down_keys[key_code]) {
+      do_instrument(key_code);
+      down_keys[key_code] = true;
+   }
 }
 
 // Remove a key from the "down" array.
@@ -21,26 +24,38 @@ function onKeyUp(event) {
    event = event || window.event;
    var key_code = event.keyCode;
 
-   pending_keys.push(key_code);
+   down_keys[key_code] = false;
 }
 
-function processPendingKeys() {
-   var curr_time = new Date().getTime();
-   elapsed_ms += (curr_time - last_time);
+function do_instrument(key_code) {
+   var char_pressed = String.fromCharCode(key_code);
 
-   if (elapsed_ms > MS_BETWEEN_BEATS) {
-      for (var i = 0; i < pending_keys.length; i++) {
-         doInstrument(pending_keys[i]);
-      }
-
-      elapsed_ms = 0;
-      pending_keys = [];
+   switch (char_pressed) {
+      // BASS
+      case 'Z':
+         do_sound("tenorB");
+         window.waves_side = 0;
+         window.waves_dampener = 1;
+         break;
+      case 'X':
+         do_sound("tenorGsharp");
+         window.waves_side = 1;
+         window.waves_dampener = 1;
+         break;
+      case 'C':
+         do_sound("tenorE");
+         window.waves_side = 2;
+         window.waves_dampener = 1;
+         break;
+      case 'V':
+         do_sound("tenorFsharp");
+         window.waves_side = 3;
+         window.waves_dampener = 1;
+         break;
+      case 'Q':
+         do_sound("test_drum");
+         break;
    }
-
-   last_time = curr_time;
-}
-
-function doInstrument(key_code) {
    if (key_code == 65) { // a
      cube1.bounceTime = 27;
      do_sound("cube1");

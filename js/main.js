@@ -29,7 +29,7 @@ var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHe
 
 var renderer = new THREE.WebGLRenderer({antialias: true});
 renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.setClearColor( 0xda2e2e, 1);
+renderer.setClearColor( 0xddddff, 1);
 document.body.appendChild( renderer.domElement );
 
 var geometry = new THREE.BoxGeometry( 1, 1, 1 );
@@ -108,8 +108,6 @@ function render() {
     requestAnimationFrame( render );
 
     renderer.render( scene, camera );
-
-    processPendingKeys();
 
     cubes.forEach(function(cube) {
         iterateBounciness(cube);

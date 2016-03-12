@@ -1,3 +1,6 @@
+window.waves_dampener = 0;
+window.waves_side = 1;
+
 (function() {
 
 ////////////////////
@@ -31,18 +34,27 @@ SiriWave9Curve.prototype.equation = function(i) {
 SiriWave9Curve.prototype._draw = function(m) {
 	this.tick += this.controller.speed * (1-0.5*Math.sin(this.seed*Math.PI));
 
+	var curr_width  = this.controller.width;
+	var curr_height = this.controller.height;
+
+	if (this.dim_flip) {
+		var temp = curr_width;
+		var curr_width = curr_height;
+		var curr_height = temp;
+	}
+
 	var ctx = this.controller.ctx;
 	ctx.beginPath();
 
-	var x_base = this.controller.width/2 + (-this.controller.width/4 + this.seed*(this.controller.width/2) );
-	var y_base = this.controller.height/2;
+	var x_base = curr_width/2 + (-curr_width/4 + this.seed*(curr_width/2) );
+	var y_base = curr_height/2;
 
 	var x, y, x_init;
 
 	var i = -3;
 	while (i <= 3) {
-		x = x_base + i * this.controller.width/4;
-		y = y_base + (m * this.equation(i));
+		x = x_base + i * curr_width/4;
+		y = y_base + (m * this.equation(i)) * waves_dampener;
 		x_init = x_init || x;
 		ctx.lineTo(x, y);
 		i += 0.01;
@@ -83,6 +95,9 @@ function SiriWave9(opt) {
 
 	this.tick = 0;
 	this.run = false;
+
+	// If the siri wave is coming from the side, we want to flip width/height.
+	this.dim_flip = false;
 
 	this.do_resize(opt.width, opt.height);
 
@@ -137,9 +152,41 @@ SiriWave9.prototype._draw = function() {
 
 	this.ctx.save();
 
-	this.ctx.translate(0, this.height/2);
+	if (waves_dampener >= 0) {
+		waves_dampener *= 0.94;
+	}
 
 	this._clear();
+
+	switch (waves_side) {
+		case 0:
+			this.ctx.translate(0, this.height/2);
+			this.dim_flip = false;
+			break;
+		case 1:
+			this.ctx.translate( this.width/2,  this.height/2);
+			this.ctx.rotate(Math.PI/2);
+			this.ctx.translate(-this.width/2, -this.height/2);
+
+			this.ctx.translate(0, -this.width/2);
+
+			this.dim_flip = true;
+			break;
+		case 2:
+			this.ctx.translate(0, -this.height/2);
+			this.dim_flip = false;
+			break;
+		case 3:
+			this.ctx.translate( this.width/2,  this.height/2);
+			this.ctx.rotate(Math.PI/2);
+			this.ctx.translate(-this.width/2, -this.height/2);
+
+			this.ctx.translate(0, this.width/2);
+
+			this.dim_flip = true;
+			break;
+	}
+
 	for (var i = 0, len = this.curves.length; i < len; i++) {
 		this.curves[i].draw();
 	}
