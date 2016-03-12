@@ -1,15 +1,10 @@
 var mp3_sounds = [
-   "cube1",
-   "cube2",
-   "cube3",
-   "cube5",
-
    "test_drum",
    "clickies",
    "clap",
    "doubleclick",
    "pew",
-   "tshh",
+   "tshhh",
    "twinklebeep",
 
    "bassC",
@@ -17,14 +12,33 @@ var mp3_sounds = [
    "bassE",
    "bassG",
 
+      
    "leadG1",
-   "leadG2",
-   "leadG3",
-
+   "leadA1",
+   "leadB1",
+   "leadD1",
    "leadE1",
+   "leadG2",
+   "leadA2",
+   "leadB2",
+   "leadD2",
    "leadE2",
-
+   "leadG3",
 ];
+
+var lead_sounds = [
+   "leadG1",
+   "leadA1",
+   "leadB1",
+   "leadD1",
+   "leadE1",
+   "leadG2",
+   "leadA2",
+   "leadB2",
+   "leadD2",
+   "leadE2",
+   "leadG3",
+]
 
 
 var sounds = {};
@@ -38,12 +52,32 @@ for (var name in mp3_sounds) {
    });
 }
 
-function do_sound(name) {
+// Load "lead" sounds (they are interruptable)
+for (var name in lead_sounds) {
+   var sound_name = lead_sounds[name];
+
+   sounds[sound_name] = new buzz.sound( "sounds/" + sound_name, {
+      formats: [ "mp3" ]
+   });
+   sounds[sound_name].interruptable = true;
+}
+
+function do_sound(name, stop_me) {
    if (!name in sounds) {
       console.warn("Tried to play non-existant sound: " + name);
       return;  
    }
 
-   sounds[name].stop();
-   sounds[name].play();
+   if (sounds[name].interruptable && stop_me) {
+      sounds[name].stop();
+      return;
+   }
+
+   if (stop_me) {
+      // Do nothing, u stopped boiii
+   }
+   else {
+      sounds[name].stop();
+      sounds[name].play();
+   }
 }
