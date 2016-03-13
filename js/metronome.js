@@ -4,7 +4,7 @@ var metro_min_x = -6;
 var metro_max_x = -metro_min_x;
 var metro_y = -6;
 
-var num_metro_cubes = 4;
+var num_metro_cubes = 16;
 
 function make_metronome() {
 	for (var ndx = 0; ndx < num_metro_cubes; ndx++) {
@@ -36,8 +36,21 @@ function update_metronome() {
    if (curr_time > next_beat_time) {
       next_beat_time = curr_time + ms_bw_beats;
 
-      if (metro_ndx == 0) {
+      if (metro_ndx % 4 == 0) {
          do_sound("metro_hi", false);
+         if (wants_loop) {
+            wants_loop = false;
+
+            recording_loop = true;
+            curr_loop_start = Date.now();
+            curr_loop = [];
+            curr_loop
+         }
+
+         if (wants_loop_end) {
+            end_loop();
+            wants_loop_end = false;
+         }
       }
       else {
          do_sound("metro_lo", false);
