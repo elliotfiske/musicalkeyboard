@@ -81,8 +81,10 @@ SiriWave9Curve.prototype.draw = function() {
 SiriWave9.prototype.do_resize = function(width, height) {
 	this.ratio = window.devicePixelRatio || 1;
 
-	this.width = this.ratio * (width || 320);
-	this.height = this.ratio * (height || 100);
+	// this.width = this.ratio * (width || 320);
+	// this.height = this.ratio * (height || 100);
+	this.width = width;
+	this.height = height;
 	this.MAX = this.height/2;
 };
 
@@ -99,7 +101,7 @@ function SiriWave9(opt) {
 	// If the siri wave is coming from the side, we want to flip width/height.
 	this.dim_flip = false;
 
-	this.do_resize(opt.width, opt.height);
+	// this.do_resize(opt.width, opt.height);
 
 	// UI vars
 

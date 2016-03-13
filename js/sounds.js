@@ -6,6 +6,8 @@ var mp3_sounds = [
    "pew",
    "tshhh",
    "twinklebeep",
+   "metro_hi",
+   "metro_lo",
 
    "bassC",
    "bassD",
@@ -38,6 +40,17 @@ var lead_sounds = [
    "leadD2",
    "leadE2",
    "leadG3",
+
+   "marimba/lead_c",
+   "marimba/lead_d",
+   "marimba/lead_e",
+   "marimba/lead_f",
+   "marimba/lead_g",
+   "marimba/lead_a",
+   "marimba/lead_b",
+   "marimba/lead_c1",
+   "marimba/lead_d1",
+   "marimba/lead_e1",
 ]
 
 

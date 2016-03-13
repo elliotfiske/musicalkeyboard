@@ -157,74 +157,116 @@ function activate_instrument(char_pressed, stop_me) {
          break;
 
       // High Percussion
-      case 'T':
+      case 'G':
          do_sound("clickies", stop_me);
          break;
-      case 'Y':
+      case 'H':
          do_sound("doubleclick", stop_me);
          break;
-      case 'U':
+      case 'J':
          do_sound("clap", stop_me);
          break;
-      case 'I':
+      case 'K':
          do_sound("pew", stop_me);
          break;
-      case 'O':
+      case 'L':
          do_sound("tshhh", stop_me);
          break;
-      case 'P':
+      case 'B':
          do_sound("twinklebeep", stop_me);
          break;
 
       // Thump-low percussion
-      case 'B':
+      case 'N':
          do_sound("test_drum", stop_me);
          break;
 
       // Lead
       case '1':
          do_sound("leadG1", stop_me);
-         cubes[0].bounceTime = 27;
+         if (!stop_me) cubes[0].bounceTime = 27;
          break;
       case '2':
          do_sound("leadA1", stop_me);
-         cubes[1].bounceTime = 27;
+         if (!stop_me) cubes[1].bounceTime = 27;
          break;
       case '3':
          do_sound("leadB1", stop_me);
-         cubes[2].bounceTime = 27;
+         if (!stop_me) cubes[2].bounceTime = 27;
          break;
       case '4':
          do_sound("leadD1", stop_me);
-         cubes[3].bounceTime = 27;
+         if (!stop_me) cubes[3].bounceTime = 27;
          break;
       case '5':
          do_sound("leadE1", stop_me);
-         cubes[4].bounceTime = 27;
+         if (!stop_me) cubes[4].bounceTime = 27;
          break;
       case '6':
          do_sound("leadG2", stop_me);
-         cubes[5].bounceTime = 27;
+         if (!stop_me) cubes[5].bounceTime = 27;
          break;
       case '7':
          do_sound("leadA2", stop_me);
-         cubes[6].bounceTime = 27;
+         if (!stop_me) cubes[6].bounceTime = 27;
          break;
       case '8':
          do_sound("leadB2", stop_me);
-         cubes[7].bounceTime = 27;
+         if (!stop_me) cubes[7].bounceTime = 27;
          break;
       case '9':
          do_sound("leadD2", stop_me);
-         cubes[8].bounceTime = 27;
+         if (!stop_me) cubes[8].bounceTime = 27;
          break;
       case '0':
          do_sound("leadE2", stop_me);
-         cubes[9].bounceTime = 27;
+         if (!stop_me) cubes[9].bounceTime = 27;
          break;
       case '½':
          do_sound("leadG3", stop_me);
-         cubes[10].bounceTime = 27;
+         if (!stop_me) cubes[10].bounceTime = 27;
+         break;
+
+      // Marimba
+      case 'Q':
+         do_sound("marimba/lead_c", stop_me);
+         if (!stop_me) cubes[0].bounceTime = 27;
+         break;
+      case 'W':
+         do_sound("marimba/lead_d", stop_me);
+         if (!stop_me) cubes[1].bounceTime = 27;
+         break;
+      case 'E':
+         do_sound("marimba/lead_e", stop_me);
+         if (!stop_me) cubes[2].bounceTime = 27;
+         break;
+      case 'R':
+         do_sound("marimba/lead_f", stop_me);
+         if (!stop_me) cubes[3].bounceTime = 27;
+         break;
+      case 'T':
+         do_sound("marimba/lead_g", stop_me);
+         if (!stop_me) cubes[4].bounceTime = 27;
+         break;
+      case 'Y':
+         do_sound("marimba/lead_a", stop_me);
+         if (!stop_me) cubes[5].bounceTime = 27;
+         break;
+      case 'U':
+         do_sound("marimba/lead_b", stop_me);
+         if (!stop_me) cubes[6].bounceTime = 27;
+         break;
+      case 'I':
+         do_sound("marimba/lead_c1", stop_me);
+         if (!stop_me) cubes[7].bounceTime = 27;
+         break;
+      case 'O':
+         do_sound("marimba/lead_d1", stop_me);
+         if (!stop_me) cubes[8].bounceTime = 27;
+         break;
+      case 'P':
+         do_sound("marimba/lead_e1", stop_me);
+         if (!stop_me) cubes[9].bounceTime = 27;
          break;
    }
 }
