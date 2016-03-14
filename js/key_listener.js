@@ -184,7 +184,11 @@ function activate_instrument(char_pressed, stop_me) {
             var angle = 2 * Math.random() * Math.PI;
             var rot = new THREE.Quaternion();
             rot.setFromAxisAngle( new THREE.Vector3(0, 0, 1), angle);
-            add_animation(clap_cube, "rot", 400, rot, new THREE.Quaternion(), easeOut);
+            add_animation(clicker_cube, "rot", 300, rot, new THREE.Quaternion(), instant);
+            add_animation(clicker_cube, "scale", 300, new THREE.Vector3(1.0, 0.5, 1.0), new THREE.Vector3(1.0, 1.0, 1.0), instant);
+            var rot2 = new THREE.Quaternion();
+            rot2.setFromAxisAngle( new THREE.Vector3(0, 0, 1), angle*2);
+            add_animation(clicker_cube, "rot", 300, rot2, new THREE.Quaternion(), instant);
          }
          break;
       case 'J':

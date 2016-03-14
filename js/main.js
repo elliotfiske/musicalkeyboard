@@ -88,6 +88,13 @@ static_cube.scale.z = 0.3;
 
 cubes.push(static_cube);
 
+var clicker_cube = make_new_cube(0xffff11);
+clicker_cube.base_x = -3;
+clicker_cube.position.y = 0;
+clicker_cube.scale.z = 0.3;
+
+cubes.push(clicker_cube);
+
 camera.position.z = 5;
 
 var ambient = new THREE.AmbientLight( 0x606060 );

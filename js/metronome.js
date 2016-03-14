@@ -82,6 +82,29 @@ function update_metronome() {
                break;
             case 3:
                activate_instrument('L', false);
+               activate_instrument('H', false);
+               break;
+         }
+
+         if (metro_ndx == 0) activate_instrument('G', false);
+      }
+
+      if (playing_loop >= 3) {
+         var lel = metro_ndx % 4;
+         switch(lel) {
+            case 0:
+               activate_instrument('1', false);
+               break;
+            case 1:
+               activate_instrument('3', false);
+               activate_instrument('4', false);
+               break;
+            case 2:
+               // activate_instrument('J', false);
+               break;
+            case 3:
+               activate_instrument('3', false);
+               activate_instrument('4', false);
                break;
          }
 
