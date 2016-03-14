@@ -19,6 +19,8 @@ function make_metronome() {
       new_cube.position.y = metro_y;
       new_cube.position.z = -5;
 
+      new_cube.scale.copy(new THREE.Vector3(0.2, 0.2, 0.2));
+
       metronome_cubes.push(new_cube);
       scene.add(new_cube);
    }
@@ -30,6 +32,10 @@ var next_beat_time = 0;
 // Which metronome beat are we on?
 var metro_ndx = 0;
 
+// How long the whole 4-measure loop takes to complete
+var TOTAL_METRO_LENGTH = ms_bw_beats * num_metro_cubes;
+var curr_metro_offset = metro_ndx * ms_bw_beats;
+
 function update_metronome() {
    var curr_time = Date.now();
 
@@ -38,19 +44,6 @@ function update_metronome() {
 
       if (metro_ndx % 4 == 0) {
          do_sound("metro_hi", false);
-         if (wants_loop) {
-            wants_loop = false;
-
-            recording_loop = true;
-            curr_loop_start = Date.now();
-            curr_loop = [];
-            curr_loop
-         }
-
-         if (wants_loop_end) {
-            end_loop();
-            wants_loop_end = false;
-         }
       }
       else {
          do_sound("metro_lo", false);
@@ -60,4 +53,15 @@ function update_metronome() {
       metro_ndx++;
       metro_ndx %= num_metro_cubes;
    }
+}
+
+// When we start a loop, we always want it to play at
+// the SAME TIME during the loop. For instance, if we
+// hit space right on the 13th beat, the loop should always
+// start right on the 13th beat.
+//
+// Here, calculate the ms offset that the loop needs to start
+// at each time around.
+function get_loop_offset() {
+
 }

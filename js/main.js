@@ -1,13 +1,13 @@
  /**
  * Rectangles bounce when you click on em.  Iterate that animation here.
  */
-function iterateBounciness(cube) {
+function iterateBounciness(cube, amp) {
    var bounceFactor = (Math.sin(cube.bounceTime / 2) + 1) * cube.bounceTime * 0.15;
    if (cube.bounceTime > 0) {
       cube.bounceTime--;
    }
 
-   var amplitude = 0.1;
+   var amplitude = 0.1 * amp;
    cube.scale.x = 1 + bounceFactor * amplitude;
    cube.scale.y = 1 + bounceFactor * amplitude;
    cube.scale.z = 1 + bounceFactor * amplitude;
@@ -40,10 +40,20 @@ var curr_y = min_y;
 
 var cubes = [];
 
-for (var ndx = 1; ndx < num_cubes; ndx++) {
+function make_new_cube() {
    var cube_geometry = new THREE.BoxGeometry( 1, 1, 1 );
    var new_material = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
    var new_cube = new THREE.Mesh (cube_geometry, new_material);
+
+   new_cube.bounceTime = 0;
+   scene.add(new_cube);
+   new_cube.position.z = -5;
+
+   return new_cube;
+}
+
+for (var ndx = 1; ndx < num_cubes; ndx++) {
+   var new_cube = make_new_cube();
 
    curr_x = (min_x * (num_cubes - ndx) + max_x * ndx) / num_cubes;
    curr_y = (min_y * (num_cubes - ndx) + max_y * ndx) / num_cubes;
@@ -55,11 +65,12 @@ for (var ndx = 1; ndx < num_cubes; ndx++) {
    cubes.push(new_cube);
 }
 
-cubes.forEach(function(cube) {
-   cube.bounceTime = 0;
-   scene.add(cube);
-   cube.position.z = -5;
-});
+var clap_cube = make_new_cube();
+clap_cube.base_x = -3;
+clap_cube.position.y = 3;
+clap_cube.scale.z = 0.3;
+
+cubes.push(clap_cube);
 
 camera.position.z = 5;
 
@@ -75,7 +86,6 @@ directionalLight.position.z = 4;
 directionalLight.position.normalize();
 
 scene.add( directionalLight );
-
 
 window.addEventListener( 'resize', onWindowResize, false );
 
@@ -121,10 +131,16 @@ function render() {
 
    cubes.forEach(function(cube) {
       iterateBounciness(cube);
+      do_animations(cube);
    });
 
    metronome_cubes.forEach(function(cube) {
-      iterateBounciness(cube);
+      iterateBounciness(cube, 0.5);
+      // cube.scale.set(new THREE.Vector3(0.2, 0.2, 0.2));
+   });
+
+   particles.forEach(function(cube) {
+      do_animations(cube, 1);
    });
 
    update_metronome();

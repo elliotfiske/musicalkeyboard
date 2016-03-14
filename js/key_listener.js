@@ -146,7 +146,7 @@ function activate_instrument(char_pressed, stop_me) {
       case 'X':
          do_basswaves(1, stop_me);
          do_sound("bassE", stop_me);
-         break;
+         break;22
       case 'C':
          do_basswaves(2, stop_me);
          do_sound("bassC", stop_me);
@@ -165,6 +165,16 @@ function activate_instrument(char_pressed, stop_me) {
          break;
       case 'J':
          do_sound("clap", stop_me);
+         var angle = 2 * Math.random() * Math.PI;
+         if (!stop_me) {
+            var dx = Math.sin(angle)*2;
+            var dy = Math.cos(angle)*2;
+            anim_pos(clap_cube, 400, dx, dy, 0, clap);
+            var rot = new THREE.Quaternion();
+            rot.setFromAxisAngle( new THREE.Vector3(0, 0, 1), angle);
+            add_animation(clap_cube, "rot", 400, rot, new THREE.Quaternion(), easeOut);
+            clap_particles(clap_cube.position, dx, dy, angle);
+         } 
          break;
       case 'K':
          do_sound("pew", stop_me);
