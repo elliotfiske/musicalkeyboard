@@ -7,10 +7,10 @@ function iterateBounciness(cube, amp) {
       cube.bounceTime--;
    }
 
-   var amplitude = 0.1 * amp;
-   cube.scale.x = 1 + bounceFactor * amplitude;
-   cube.scale.y = 1 + bounceFactor * amplitude;
-   cube.scale.z = 1 + bounceFactor * amplitude;
+   var amplitude = 0.1;
+   cube.scale.x = amp + bounceFactor * amplitude;
+   cube.scale.y = amp + bounceFactor * amplitude;
+   cube.scale.z = amp + bounceFactor * amplitude;
 
    cube.material.color.r = cube.bounceTime / 27;
    cube.material.color.g = 1-cube.bounceTime / 27;
@@ -40,9 +40,11 @@ var curr_y = min_y;
 
 var cubes = [];
 
-function make_new_cube() {
+function make_new_cube( color ) {
+   var mat_color = color || 0xdddddd;
+
    var cube_geometry = new THREE.BoxGeometry( 1, 1, 1 );
-   var new_material = new THREE.MeshPhongMaterial( { color: 0xdddddd, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
+   var new_material = new THREE.MeshPhongMaterial( { color: mat_color, specular: 0xffffff, shininess: 3, shading: THREE.FlatShading } );
    var new_cube = new THREE.Mesh (cube_geometry, new_material);
 
    new_cube.bounceTime = 0;
@@ -65,7 +67,7 @@ for (var ndx = 1; ndx < num_cubes; ndx++) {
    cubes.push(new_cube);
 }
 
-var clap_cube = make_new_cube();
+var clap_cube = make_new_cube(0xff0000);
 clap_cube.base_x = -3;
 clap_cube.position.y = 3;
 clap_cube.scale.z = 0.3;
@@ -130,7 +132,7 @@ function render() {
    renderer.render( scene, camera );
 
    cubes.forEach(function(cube) {
-      iterateBounciness(cube);
+      iterateBounciness(cube, 1);
       do_animations(cube);
    });
 
@@ -140,7 +142,7 @@ function render() {
    });
 
    particles.forEach(function(cube) {
-      do_animations(cube, 1);
+      do_animations(cube);
    });
 
    update_metronome();

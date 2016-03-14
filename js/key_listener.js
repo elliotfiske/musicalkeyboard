@@ -110,6 +110,12 @@ function do_basswaves(side, stop_me) {
    sounds["bassE"].stop();
    sounds["bassG"].stop();
    sounds["bassD"].stop();
+
+   sounds["arp_c"].stop();
+   sounds["arp_d"].stop();
+   sounds["arp_e"].stop();
+   sounds["arp_g"].stop();
+
 }
 
 function do_instrument(key_code) {
@@ -142,18 +148,26 @@ function activate_instrument(char_pressed, stop_me) {
       case 'Z':
          do_basswaves(0, stop_me);
          do_sound("bassG", stop_me);
+         sounds["arp_g"].setVolume(30);
+         do_sound("arp_g", stop_me);
          break;
       case 'X':
          do_basswaves(1, stop_me);
          do_sound("bassE", stop_me);
-         break;22
+         sounds["arp_e"].setVolume(30);
+         do_sound("arp_e", stop_me);
+         break;
       case 'C':
          do_basswaves(2, stop_me);
          do_sound("bassC", stop_me);
+         sounds["arp_c"].setVolume(30);
+         do_sound("arp_c", stop_me);
          break;
       case 'V':
          do_basswaves(3, stop_me);
          do_sound("bassD", stop_me);
+         sounds["arp_d"].setVolume(30);
+         do_sound("arp_d", stop_me);
          break;
 
       // High Percussion

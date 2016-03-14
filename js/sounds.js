@@ -14,6 +14,11 @@ var mp3_sounds = [
    "bassE",
    "bassG",
 
+   "arp_c",
+   "arp_d",
+   "arp_e",
+   "arp_g",
+
       
    "leadG1",
    "leadA1",

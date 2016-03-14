@@ -1,8 +1,8 @@
 var metronome_cubes = [];
 
-var metro_min_x = -6;
+var metro_min_x = -5;
 var metro_max_x = -metro_min_x;
-var metro_y = -6;
+var metro_y = -6.5;
 
 var num_metro_cubes = 16;
 
