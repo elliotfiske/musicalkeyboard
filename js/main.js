@@ -74,6 +74,20 @@ clap_cube.scale.z = 0.3;
 
 cubes.push(clap_cube);
 
+var thump_cube = make_new_cube(0x11ff11);
+thump_cube.base_x = 3;
+thump_cube.position.y = -3;
+thump_cube.scale.z = 0.3;
+
+cubes.push(thump_cube);
+
+var static_cube = make_new_cube(0x11ff11);
+static_cube.base_x = 3;
+static_cube.position.y = 0;
+static_cube.scale.z = 0.3;
+
+cubes.push(static_cube);
+
 camera.position.z = 5;
 
 var ambient = new THREE.AmbientLight( 0x606060 );
@@ -144,6 +158,16 @@ function render() {
    particles.forEach(function(cube) {
       do_animations(cube);
    });
+
+   for (var ndx = particles.length - 1; ndx >= 0; ndx--) {
+      var curr_particle = particles[ndx];
+      do_animations(curr_particle);
+      // console.log("Num particles: " + particles.length);
+      if (curr_particle.animations.length == 0) {
+         scene.remove(curr_particle);
+         particles.splice(ndx, 1);
+      }
+   }
 
    update_metronome();
    update_loops();

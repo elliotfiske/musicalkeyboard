@@ -65,12 +65,14 @@ function onKeyDown(event) {
    }
 
    if (key_code == 32) {
-      recording_loop = true;
-      curr_loop_start = Date.now();
-      curr_loop = [];
-      curr_loop
+      // recording_loop = true;
+      // curr_loop_start = Date.now();
+      // curr_loop = [];
+      // curr_loop
    }
 }
+
+var playing_loop = 0;
 
 // Remove a key from the "down" array.
 function onKeyUp(event) {
@@ -82,17 +84,19 @@ function onKeyUp(event) {
    stop_instrument(key_code);
 
    if (key_code == 32) {
-      recording_loop = false;
-      all_loops.push(curr_loop);
+      playing_loop++;
 
-      if (all_loops.length == 1) {
-         begin_playing_loops(); // First loop!
-      }
+      // recording_loop = false;
+      // all_loops.push(curr_loop);
 
-      var new_loop_len = Date.now() - curr_loop_start;
-      if (new_loop_len > longest_loop_time) {
-         longest_loop_time = new_loop_len;
-      }
+      // if (all_loops.length == 1) {
+      //    begin_playing_loops(); // First loop!
+      // }
+
+      // var new_loop_len = Date.now() - curr_loop_start;
+      // if (new_loop_len > longest_loop_time) {
+      //    longest_loop_time = new_loop_len;
+      // }
    }
 }
 
@@ -123,10 +127,10 @@ function do_instrument(key_code) {
    activate_instrument(char_pressed, false);
 
    if (recording_loop) {
-      var time_offset = Date.now() - curr_loop_start;
-      time_offset -= time_offset % 100;
-      var new_step = {time_offset: time_offset, key: char_pressed, down: false};
-      curr_loop.push(new_step);
+      // var time_offset = Date.now() - curr_loop_start;
+      // time_offset -= time_offset % 100;
+      // var new_step = {time_offset: time_offset, key: char_pressed, down: false};
+      // curr_loop.push(new_step);
    }
 }
 
@@ -135,10 +139,10 @@ function stop_instrument(key_code) {
    activate_instrument(char_pressed, true);
 
    if (recording_loop) {
-      var time_offset = Date.now() - curr_loop_start;
-      time_offset -= time_offset % 100;
-      var new_step = {time_offset: time_offset, key: char_pressed, down: true};
-      curr_loop.push(new_step);
+      // var time_offset = Date.now() - curr_loop_start;
+      // time_offset -= time_offset % 100;
+      // var new_step = {time_offset: time_offset, key: char_pressed, down: true};
+      // curr_loop.push(new_step);
    }
 }
 
@@ -176,6 +180,12 @@ function activate_instrument(char_pressed, stop_me) {
          break;
       case 'H':
          do_sound("doubleclick", stop_me);
+         if (!stop_me) {
+            var angle = 2 * Math.random() * Math.PI;
+            var rot = new THREE.Quaternion();
+            rot.setFromAxisAngle( new THREE.Vector3(0, 0, 1), angle);
+            add_animation(clap_cube, "rot", 400, rot, new THREE.Quaternion(), easeOut);
+         }
          break;
       case 'J':
          do_sound("clap", stop_me);
@@ -195,6 +205,18 @@ function activate_instrument(char_pressed, stop_me) {
          break;
       case 'L':
          do_sound("tshhh", stop_me);
+         var angle = (Math.random() + 1) * Math.PI;
+         var rot = new THREE.Quaternion();
+         rot.setFromAxisAngle( new THREE.Vector3(0, 0, 1), angle);
+         add_animation(static_cube, "scale", 400, new THREE.Vector3(1.5, 1.5, 1.4), new THREE.Vector3(1.0, 1.0, 1.0), static);
+         add_animation(static_cube, "rot", 400, rot, new THREE.Quaternion(), static);
+
+         for (var ndx = 0; ndx < 6; ndx++) {
+            var particle_angle = 2 * Math.random() * Math.PI;
+            var pdx = Math.sin(angle);
+            var pdy = Math.cos(angle)
+            clap_particles(static_cube.position, pdx, pdy, particle_angle, 1);
+         }
          break;
       case 'B':
          do_sound("twinklebeep", stop_me);
@@ -203,6 +225,21 @@ function activate_instrument(char_pressed, stop_me) {
       // Thump-low percussion
       case 'N':
          do_sound("test_drum", stop_me);
+         if (!stop_me) {
+            var angle = Math.PI/3;
+            var dx = Math.sin(angle)*2;
+            var dy = Math.cos(angle)*2;
+            add_animation(thump_cube, "scale", 400, new THREE.Vector3(1.5, 0.3, 1.0), new THREE.Vector3(1.2, 0.6, 1.0), easeOut);
+            clap_particles(thump_cube.position, dx, dy, angle);
+            clap_particles(thump_cube.position, dx, dy, angle);
+
+
+            angle = Math.PI / 3 + Math.PI;
+            dx = Math.sin(angle)*2;
+            dy = Math.cos(angle)*2; 
+            clap_particles(thump_cube.position, dx, dy, angle);
+            clap_particles(thump_cube.position, dx, dy, angle);
+         } 
          break;
 
       // Lead

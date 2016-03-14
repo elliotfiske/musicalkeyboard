@@ -1,8 +1,9 @@
 var particles = [];
 
-function clap_particles(posn, dx, dy, angle) {
+function clap_particles(posn, dx, dy, angle, how_many) {
+   var num = how_many || 4;
    for (var ndx = 0; ndx < 4; ndx++) {
-      var new_particle = make_new_cube();
+      var new_particle = make_new_cube(0x00ff00);
       new_particle.position.copy(posn.clone());
       // new_particle.position.add(new THREE.Vector3(dx, dy, 0));
 

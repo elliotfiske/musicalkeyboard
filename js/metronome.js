@@ -49,10 +49,50 @@ function update_metronome() {
          do_sound("metro_lo", false);
       }
 
+
+      if (playing_loop >= 1) {
+         var lol = metro_ndx / 4;
+         switch(lol) {
+            case 0:
+               activate_instrument('Z', false);
+               break;
+            case 1:
+               activate_instrument('X', false);
+               break;
+            case 2:
+               activate_instrument('C', false);
+               break;
+            case 3:
+               activate_instrument('V', false);
+               break;
+         }
+      }
+
+      if (playing_loop >= 2) {
+         var lel = metro_ndx % 4;
+         switch(lel) {
+            case 0:
+               activate_instrument('N', false);
+               break;
+            case 1:
+               activate_instrument('L', false);
+               break;
+            case 2:
+               activate_instrument('J', false);
+               break;
+            case 3:
+               activate_instrument('L', false);
+               break;
+         }
+
+         if (metro_ndx == 0) activate_instrument('G', false);
+      }
+
       metronome_cubes[metro_ndx].bounceTime = 16;
       metro_ndx++;
       metro_ndx %= num_metro_cubes;
    }
+
 }
 
 // When we start a loop, we always want it to play at

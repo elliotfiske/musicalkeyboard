@@ -19,7 +19,7 @@ function do_animations(cube) {
 		var u = (Date.now() - curr_animation.start_ms) / curr_animation.duration;
 
 		if (u > 1) {
-			cube.animations.splice(ndx, 0);
+			cube.animations.splice(ndx, 1);
 			continue;
 		}
 
@@ -49,4 +49,25 @@ function easeOut(u) {
 
 function clap(u) {
 	return easeIn(1 - u);
+}
+
+function static(u) {
+	return Math.random() * (1 - u) + u;
+}
+
+function bounce(u) {
+	return 0.1 * u * Math.sin(0.4 * u);
+}
+
+function linear(u) {
+	return u;
+}
+
+function instant(u) {
+	if (u < 0.5) {
+		return 0;
+	}
+	else {
+		return 1;
+	}
 }

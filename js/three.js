@@ -4611,7 +4611,7 @@ THREE.Matrix3.prototype = {
 
 			} else {
 
-				console.warn( msg );
+				// console.warn( msg );
 
 			}
 
