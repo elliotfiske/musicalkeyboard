@@ -65,7 +65,7 @@ var sounds = {};
 for (var name in mp3_sounds) {
    var sound_name = mp3_sounds[name];
 
-   sounds[sound_name] = new buzz.sound( "sounds/" + sound_name, {
+   sounds[sound_name] = new buzz.sound( "http://www.elliotfiske.com/animation/sounds/" + sound_name, {
       formats: [ "mp3" ]
    });
 }
@@ -74,7 +74,7 @@ for (var name in mp3_sounds) {
 for (var name in lead_sounds) {
    var sound_name = lead_sounds[name];
 
-   sounds[sound_name] = new buzz.sound( "sounds/" + sound_name, {
+   sounds[sound_name] = new buzz.sound( "http://www.elliotfiske.com/animation/sounds/" + sound_name, {
       formats: [ "mp3" ]
    });
    sounds[sound_name].interruptable = true;

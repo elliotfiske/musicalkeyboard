@@ -1,12 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <script src="js/jquery.min.js"></script>
     <meta charset=utf-8>
     <title>My first Three.js app</title>
     <style>
         body { margin: 0; }
         canvas { width: 100%; height: 100% }
     </style>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
 </head>
 <body>
     <div id="siri-container" style="position: absolute"></div>
@@ -14,16 +25,167 @@
     <script src="js/siriwave9.js"></script>
     <script src="js/loop.js"></script>
     <script src="js/buzz.min.js"></script>
-    <script src="js/jquery.min.js"></script>
     <script src="js/sounds.js"></script>
     <script src="js/key_listener.js"></script>
     <script src="js/metronome.js"></script>
     <script src="js/timing.js"></script>
     <script src="js/particles.js"></script>
     <script src="js/main.js"></script>
-    <script>
+<script type="text/javascript">
+    setTimeout(function(){
+        $('#myModal').modal('show');
+    }, 500);
+</script>
        
 
-    </script>
+<!-- Modal -->
+<div class="modal fade in bs-example-modal-lg" id="myModal" data-show="true" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Musical Keyboard</h4>
+      </div>
+      <div class="modal-body">
+        Welcome to my CPE 474 final project: the <b>Animated Keyboard!</b>
+        <br>
+        <br>
+        Press these buttons to make different sounds:
+        <br>
+        <br>
+        <br>
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-2" />
+                <img src="legend.png" style="display: block"/>
+            </div>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <h3>Timing Functions</h3>
+        Each of the cube-instruments use a different <b>timing function</b> to achieve their motion. For each movement, I pass in a start transform, an ending transform and a duration. Without the timing function, each animation would simply linearly go from the starting transform to the ending transform.
+        <br>
+        <br>
+        This would be super boring. Instead, I modify each animation with a <b>timing function.</b> First, I <i>normalize the time elapsed</i> for each animation. That is, instead of going from (starting milliseconds) to (ending milliseconds), each animation goes from 0 to 1. Then, I pass in the normalized time parameter into my timing function.
+        <br>
+        <br>
+        Javascript lets you treat functions like variables and argument parameters, so the entire function to animate a cube looks like:
+        <br>
+        <pre>animate_cube( cube, start_transform, end_transform, duration, timing_function );</pre>
+
+        <br>
+        <br>
+        <h3>Timing Function Examples</h3>
+        <h4>Shimmy</h4>
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-2" />
+                <img src="random_fn.gif" style="display: block"/>
+            </div>
+        </div>
+        Without the timing function, it looks like this:
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-2" />
+                <img src="random_fn_linear.gif" style="display: block"/>
+            </div>
+        </div>
+        It simply goes from big -> small, and makes one quarter-turn. We apply its timing function: 
+<pre>
+function shimmy(u) {
+    return Math.random() * (1 - u) + u;
+}
+</pre>
+        When u == 0, the result is random between 0 and 1.
+        <br>
+        At u == 0.5, the result is random between 0.5 and 1.
+        <br>
+        At u == 1, the result is always 1. 
+        <br>
+        <br>
+        As u goes from 0 to 1, it restricts the space that the function can land on, eventually landing on exactly 1. So the end result is a sort of "jitter" as it bounces around different angles, until it finally settles on the end transform, at u == 1.
+
+        <br>
+        <br>
+        <br>
+        <h4>Clap</h4>
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-2" />
+                <img src="clap_fn.gif" style="display: block"/>
+            </div>
+        </div>
+        Without the timing function, it looks like this:
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-2" />
+                <img src="clap_fn_linear.gif" style="display: block"/>
+            </div>
+        </div>
+
+        <br>
+        It rotates and moves in a random direction. Here's the timing function(s):
+<pre>
+function easeIn(u) {
+    return u*u*u;
+}
+
+function clap(u) {
+    return easeIn(1 - u);
+}
+</pre>
+        As you can see, we can easily chain timing functions by calling one from another. In this case, clap() simply runs the easeIn function backwards, so it runs <i><b>from</b></i> the end transform <i><b>to</b></i> the start transform. I could've achieved the same effect just by switching the transforms in the animation function call, but this was cooler.
+        <br>
+        <br>
+        Remember that cubing a value below 1 makes it <i>smaller</i>, in a curvy shape that passes through (1, 1):
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-2" />
+                <img src="ease_in.png" style="display: block"/>
+            </div>
+        </div>
+        As you can see from the "clapping" cube, it starts moving quickly (at u == 1) and eases slowly back towards 0. I use the "ease" effect for the bass drum cube as well.
+
+        <h4>Double-tap</h4>
+        Finally, the double-tap:
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-2" />
+                <img src="double_tap_fn.gif" style="display: block"/>
+            </div>
+        </div>
+
+        This is an interesting one. Without a timing function, it looks like this:
+        <div class="row">
+            <div class="col-xs-4 col-xs-offset-2" />
+                <img src="double_tap_linear.gif" style="display: block"/>
+            </div>
+        </div>
+
+        Here's what the timing function looks like:
+
+<pre>
+function instant(u) {
+    if (u < 0.5) {
+        return 0;
+    }
+    else {
+        return 1;
+    }
+}
+</pre>
+
+        If u is less than 1/2, it returns 0. Otherwise, it returns 1. This makes the animation abruptly jump from the starting transform to the ending transform, then back again, giving a quick "click" animation.
+
+
+        <h3>Final Remarks</h3>
+        As you can see, timing functions are pretty powerful. I used similar timing functions to control the bouncy cubes and the particles that shrink and disappear. You can check out the timing code I wrote <a href="js/timing.js">right here.</a> It's well-documented and contains some stuff you might recognize from a graphics class, like lerpVectors and slerp. Check it out!
+
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary">Start making music!</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
