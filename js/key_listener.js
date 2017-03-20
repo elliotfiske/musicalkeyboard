@@ -184,11 +184,11 @@ function activate_instrument(char_pressed, stop_me) {
             var angle = 2 * Math.random() * Math.PI;
             var rot = new THREE.Quaternion();
             rot.setFromAxisAngle( new THREE.Vector3(0, 0, 1), angle);
-            add_animation(clicker_cube, "rot", 300, rot, new THREE.Quaternion(), linear);
-            add_animation(clicker_cube, "scale", 300, new THREE.Vector3(1.0, 0.5, 1.0), new THREE.Vector3(1.0, 1.0, 1.0), linear);
+            add_animation(clicker_cube, "rot", 300, rot, new THREE.Quaternion(), instant);
+            add_animation(clicker_cube, "scale", 300, new THREE.Vector3(1.0, 0.5, 1.0), new THREE.Vector3(1.0, 1.0, 1.0), instant);
             var rot2 = new THREE.Quaternion();
             rot2.setFromAxisAngle( new THREE.Vector3(0, 0, 1), angle*2);
-            add_animation(clicker_cube, "rot", 300, rot2, new THREE.Quaternion(), linear);
+            add_animation(clicker_cube, "rot", 300, rot2, new THREE.Quaternion(), instant);
          }
          break;
       case 'J':
@@ -197,10 +197,10 @@ function activate_instrument(char_pressed, stop_me) {
          if (!stop_me) {
             var dx = Math.sin(angle)*2;
             var dy = Math.cos(angle)*2;
-            anim_pos(clap_cube, 400, dx, dy, 0, linear);
+            anim_pos(clap_cube, 400, dx, dy, 0, clap);
             var rot = new THREE.Quaternion();
             rot.setFromAxisAngle( new THREE.Vector3(0, 0, 1), angle);
-            add_animation(clap_cube, "rot", 400, rot, new THREE.Quaternion(), linear);
+            add_animation(clap_cube, "rot", 400, rot, new THREE.Quaternion(), easeOut);
             clap_particles(clap_cube.position, dx, dy, angle);
          } 
          break;
@@ -209,11 +209,11 @@ function activate_instrument(char_pressed, stop_me) {
          break;
       case 'L':
          do_sound("tshhh", stop_me);
-         var angle = Math.PI/2;
+         var angle = (Math.random() + 1) * Math.PI;
          var rot = new THREE.Quaternion();
          rot.setFromAxisAngle( new THREE.Vector3(0, 0, 1), angle);
-         add_animation(static_cube, "scale", 400, new THREE.Vector3(1.5, 1.5, 1.4), new THREE.Vector3(1.0, 1.0, 1.0), linear);
-         add_animation(static_cube, "rot", 400, rot, new THREE.Quaternion(), linear);
+         add_animation(static_cube, "scale", 400, new THREE.Vector3(1.5, 1.5, 1.4), new THREE.Vector3(1.0, 1.0, 1.0), static);
+         add_animation(static_cube, "rot", 400, rot, new THREE.Quaternion(), static);
 
          for (var ndx = 0; ndx < 6; ndx++) {
             var particle_angle = 2 * Math.random() * Math.PI;
